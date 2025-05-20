@@ -1,8 +1,8 @@
 import sys
 import requests
 
-def extract_weather(city, start_date, end_date, api_key):
-    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}/{start_date}/{end_date}?key={api_key}"
+def extract_weather(latitude, longtitude, start_date, end_date, api_key):
+    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{latitude},{longtitude}/{start_date}/{end_date}?unitGroup=metric&key={api_key}&contentType=json"
 
     try:
         response = requests.get(url)
