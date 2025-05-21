@@ -18,3 +18,5 @@ class Config:
 
     START_DATE_UNIX = int(datetime.strptime(START_DATE, "%Y-%m-%d").timestamp())
     END_DATE_UNIX = int(datetime.strptime(END_DATE, "%Y-%m-%d").timestamp())
+
+    DATA_PATH = os.path.join(os.path.dirname(__file__), "data")
