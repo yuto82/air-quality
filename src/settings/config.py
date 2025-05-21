@@ -1,7 +1,7 @@
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timezone
 
 env_path = join(dirname(__file__), ".env")
 load_dotenv(env_path)
@@ -16,7 +16,7 @@ class Config:
     START_DATE = os.environ.get("START_DATE")
     END_DATE = os.environ.get("END_DATE")
 
-    START_DATE_UNIX = int(datetime.strptime(START_DATE, "%Y-%m-%d").timestamp())
-    END_DATE_UNIX = int(datetime.strptime(END_DATE, "%Y-%m-%d").timestamp())
+    START_DATE_UNIX = int(datetime.strptime(START_DATE, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
+    END_DATE_UNIX = int(datetime.strptime(END_DATE, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
 
     DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data")

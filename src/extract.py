@@ -15,9 +15,7 @@ def main():
     end_date = Config.END_DATE
 
     start_date_unix = Config.START_DATE_UNIX
-    print(start_date_unix)
     end_date_unix = Config.END_DATE_UNIX
-    print(end_date_unix)
 
     data_path = Path(Config.DATA_PATH)
     
