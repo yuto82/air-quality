@@ -28,4 +28,5 @@ def main():
     with open(data_path / "air_quality_data.json", "w") as file:
         json.dump(air_quality_data, file, indent=4)
 
-main()
+if __name__ == "__main__":
+    main()
