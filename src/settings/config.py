@@ -10,6 +10,8 @@ class Config:
     WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
     AIR_QUALITY_KEY = os.environ.get("AIR_QUALITY_KEY")
     
+    DATABASE_URL = os.getenv("DATABASE_URL")
+
     LATITUDE = os.environ.get("LATITUDE")
     LONGITUDE = os.environ.get("LONGITUDE")
     

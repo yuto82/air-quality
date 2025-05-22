@@ -80,13 +80,11 @@ def main():
     air_quality_path = Path(__file__).parent / "data" / "transformed_data_air.csv"
     df_air_quality.to_csv(air_quality_path, index=False)
 
-    df_air = pd.read_csv(air_quality_path)
-    df_weather = pd.read_csv(weather_path)
+    df_a = pd.read_csv(air_quality_path)
+    df_w = pd.read_csv(weather_path)
 
-    df_merged = pd.merge(df_air, df_weather, on="date", how="inner")
-
-    data_path = Path(__file__).parent / "data" / "data.csv"
-    df_merged.to_csv(data_path, index=False)
+    df_merged = pd.merge(df_a, df_w, on="date", how="inner")
+    df_merged.to_csv(Path(__file__).parent / "data" / "data.csv", index=False)
 
 if __name__ == "__main__":
     main()
