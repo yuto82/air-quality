@@ -2,6 +2,9 @@ import sys
 import json
 import pandas as pd
 from pathlib import Path
+from settings.utils import create_logger
+
+logger = create_logger()
 
 def load_data(filename):
     try:
@@ -9,18 +12,20 @@ def load_data(filename):
 
         with open(file_path, "r") as file:
             data = json.load(file)
+        logger.info(f"Successfully loaded data from {filename}")
         return(data)
     
     except FileNotFoundError:
-        print.error(f"File {filename} not found.")
+        logger.error(f"File {filename} not found.")
         sys.exit(1)
     except json.JSONDecodeError:
-        print.error("Error decoding JSON from the file.")
+        logger.error(f"Error decoding JSON from {filename}.")
         sys.exit(1)
 
 def transform_weather(raw_data):
-
+    logger.info("Transforming air quality data")
     records = raw_data.get("days", [])
+    logger.info(f"Records received: {len(records)}")
 
     df = pd.DataFrame(records)
 
@@ -34,11 +39,14 @@ def transform_weather(raw_data):
     df["pressure"] = pd.to_numeric(df["pressure"], errors="coerce").round(1)
     df["wind_speed"] = pd.to_numeric(df["wind_speed"], errors="coerce").round(1)
 
+    logger.info("Weather data transformation complete")
     return(df)
 
 def transform_air_quality(raw_data):
-
+    logger.info("Transforming air quality data")
     records = raw_data.get("list", [])
+    logger.info(f"Records received: {len(records)}")
+
     df = pd.json_normalize(records)
 
     df["dt"] = pd.to_datetime(df["dt"], unit = "s").dt.date
@@ -66,9 +74,11 @@ def transform_air_quality(raw_data):
     df["SO2"] = pd.to_numeric(df["SO2"], errors="coerce").round(1)
     df["NH3"] = pd.to_numeric(df["NH3"], errors="coerce").round(1)
 
+    logger.info("Air quality data transformation complete")
     return df
 
 def main():
+    logger.info("Starting data processing")
     air_quality_raw = load_data("air_quality_data.json")
     df_air_quality = transform_air_quality(air_quality_raw)
 
@@ -77,14 +87,23 @@ def main():
 
     weather_path = Path(__file__).parent / "data" / "transformed_data_weather.csv"
     df_weather.to_csv(weather_path, index=False)
+    logger.info(f"Weather data saved to {weather_path}")
+
     air_quality_path = Path(__file__).parent / "data" / "transformed_data_air.csv"
     df_air_quality.to_csv(air_quality_path, index=False)
+    logger.info(f"Air quality data saved to {air_quality_path}")
 
     df_a = pd.read_csv(air_quality_path)
     df_w = pd.read_csv(weather_path)
 
     df_merged = pd.merge(df_a, df_w, on="date", how="inner")
-    df_merged.to_csv(Path(__file__).parent / "data" / "data.csv", index=False)
+
+    merged_path = Path(__file__).parent / "data" / "data.csv"
+    df_merged.to_csv(merged_path, index=False)
+    
+    logger.info(f"Merged data saved to {merged_path}")
+    logger.info(f"Final dataset shape: {df_merged.shape}")
+
 
 if __name__ == "__main__":
     main()
