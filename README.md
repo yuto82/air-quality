@@ -1,5 +1,7 @@
 # Weather and Air Quality ETL Pipeline
 
+![Image](https://github.com/user-attachments/assets/12bbb77a-be53-4e93-a5dc-9d2868646e87)
+
 ## Overview
 This project implements an ETL (Extract, Transform, Load) pipeline for collecting and processing historical weather and air pollution data for a specified location.
 The pipeline fetches data from external APIs, transforms it into a clean and structured tabular format, and then loads the processed data into a database.
