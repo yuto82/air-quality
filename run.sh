@@ -14,33 +14,33 @@ else
   exit 1
 fi
 
-echo "Running extract.py"
+echo "extract.py running."
 # Run extract.py to get data from APIs
 $PYTHON src/extract.py
 
 # Check for errors after running extract.py
 if [ $? -ne 0 ]; then
-  echo "extract.py failed. Exiting."
+  echo "extract.py failed. Execution stopped."
   exit 1
 fi
 
-echo "Running transform.py"
+echo "transform.py running."
 # Run transform.py to clean and convert the data
 $PYTHON src/transform.py
 
 # Check for errors after running transform.py
 if [ $? -ne 0 ]; then
-  echo "transform.py failed. Exiting."
+  echo "transform.py failed. Execution stopped."
   exit 1
 fi
 
-echo "Running load.py"
+echo "load.py running."
 # Run load.py to load the data into the database
 $PYTHON src/load.py
 
 # Check for errors after running load.py
 if [ $? -ne 0 ]; then
-  echo "load.py failed. Exiting."
+  echo "load.py failed. Execution stopped."
   exit 1
 fi
 

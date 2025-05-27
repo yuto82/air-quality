@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 from settings.config import Config
-from api_requests.weather import extract_weather
-from api_requests.air_quality import extract_air_quality
+from services.weather import extract_weather
+from services.air_quality import extract_air_quality
 
 def main():
     api_key_weather = Config.WEATHER_API_KEY
