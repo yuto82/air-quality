@@ -18,8 +18,8 @@ The goal of this project is to provide a robust and well-transformed dataset tha
   - numpy 2.2.6
   - dotenv 1.1.0
 - **Data Sources:**
-  - [Weather API](https://www.visualcrossing.com/weather-api/)
-  - [Air Pollution API](https://openweathermap.org/api)
+  - [Visual Crossing Weather](https://www.visualcrossing.com/weather-api/)
+  - [OpenWeatherAPI](https://openweathermap.org/api)
 
 ## Project Structure
 ```
@@ -83,13 +83,30 @@ pip install -r requirements.txt
 ```
 
 #### 4. Set up the environment variables:
+&nbsp; Create a `.env` file in the `settings/` directory with the following keys:
 ```
-WEATHER_API_KEY=
-WEATHER_API_KEY=
-AIR_QUALITY_KEY=
-LATITUDE=
-LONGITUDE=
-START_DATE=
-END_DATE=
+WEATHER_API_KEY=your_visualcrossing_key_here
+AIR_QUALITY_KEY=your_openweather_key_here
+LATITUDE=50.0619
+LONGITUDE=19.9368
+START_DATE=2024-05-01
+END_DATE=2024-05-10
 DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>
+```
+#### 5. Set up the PostgreSQL database:
+
+```
+psql -U <user_name> -d <database>
+CREATE DATABASE weather_db;
+\c weather_db
+```
+
+#### 6. Make sure the run.sh is executable by running
+```
+chmod +x run.sh
+```
+
+#### 7. Execute the script with
+```
+./run.sh
 ```
