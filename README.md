@@ -39,3 +39,57 @@ The goal of this project is to provide a robust and well-transformed dataset tha
 └── run.sh                         # Execute the ETL pipeline
 ```
 ## ETL Pipeline Breakdown
+This project implements an ETL (Extract, Transform, Load) pipeline for collecting and processing data from external APIs. The pipeline consists of the following main steps:
+
+### 1. Extract
+- **Modules:** `extract.py`, `air_quality.py`, `weather.py`.
+- **Description:** Data collected using [Visual Crossing Weather](https://www.visualcrossing.com/weather-api/) and [OpenWeatherAPI](https://openweathermap.org/api). Weather data includes temperature, feels like temperature, humidity, pressure and wind speed. Air Pollution data includes AQI, PM25, PM10, NO, NO2, O3, CO, SO2, NH3.
+- **Output:** JSON files stored in `data/` directory: `weather_data.json`, `air_quality_data.json`.
+
+### 2. Transform
+- **Modules:** `transform.py`
+- **Description:** Clean, normalize, and reshape raw data into tabular format suitable for analysis.
+- **Output:** CSV files stored in `data/` directory: `data.csv`, `transformed_data_air.csv`, `transformed_data_weather.csv`.
+
+### 3. Load
+- **Modules:** `load.py`
+- **Description:** The cleaned and transformed data is stored in PostgreSQL. Database includes separate tables for weather, air pollution, and merged data.
+- **Output:** Data is inserted into the following PostgreSQL tables: `data`, `weather`, `air_pollution`. 
+
+## How to Run the Project
+
+### 1. Prerequisites
+Before running the ETL pipeline, make sure you have the following installed:
+- Python (version 3.8+) 
+- PostgreSQL (version 9.6+) with database and user access.
+- [OpenWeatherAPI](https://openweathermap.org/api) and [Visual Crossing Weather](https://www.visualcrossing.com/weather-api/) API keys.
+
+### 2. Setup Instructions
+#### 1. Clone the repository:
+```
+git clone https://github.com/yuto82/weather_air-quality.git
+cd weather_air-quality
+```
+
+#### 2. Create and activate a virtual environment:
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
+#### 3. Install the required dependencies:
+```
+pip install -r requirements.txt
+```
+
+#### 4. Set up the environment variables:
+```
+WEATHER_API_KEY=
+WEATHER_API_KEY=
+AIR_QUALITY_KEY=
+LATITUDE=
+LONGITUDE=
+START_DATE=
+END_DATE=
+DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>
+```

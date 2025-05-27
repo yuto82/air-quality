@@ -13,7 +13,7 @@ def extract_weather(latitude, longtitude, start_date, end_date, api_key):
         response.raise_for_status()
 
         weather_data = response.json()
-        logger.info("Weather data received successfully.")
+        logger.info("Weather data received successfully")
         return(weather_data)
     
     except requests.exceptions.HTTPError as http_err:

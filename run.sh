@@ -2,7 +2,7 @@
 PYTHON=python3
 
 # Check if the virtual environment exists
-echo "Checking the virtual environment."
+echo "Checking the virtual environment..."
 if [ -d "venv" ]; then
   echo "Virtual environment found."
   # Activate the virtual environment
@@ -10,11 +10,11 @@ if [ -d "venv" ]; then
   echo "Activated."
 else
   # If the venv folder is missing, exit with error
-  echo "Virtual environment not found"
+  echo "Virtual environment not found. Execution stopped."
   exit 1
 fi
 
-echo "extract.py running."
+echo "extract.py running..."
 # Run extract.py to get data from APIs
 $PYTHON src/extract.py
 
@@ -24,7 +24,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "transform.py running."
+echo "transform.py running..."
 # Run transform.py to clean and convert the data
 $PYTHON src/transform.py
 
@@ -34,7 +34,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "load.py running."
+echo "load.py running..."
 # Run load.py to load the data into the database
 $PYTHON src/load.py
 

@@ -13,7 +13,7 @@ def extract_air_quality(latitude, longtitude, start_date, end_date, api_key):
         response.raise_for_status()
 
         weather_data = response.json()
-        logger.info("Air quality data received successfully.")
+        logger.info("Air quality data received successfully")
         return(weather_data)
     
     except requests.exceptions.HTTPError as http_err:

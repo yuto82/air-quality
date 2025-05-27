@@ -79,6 +79,7 @@ def transform_air_quality(raw_data):
 
 def main():
     logger.info("Starting data processing")
+    
     air_quality_raw = load_data("air_quality_data.json")
     df_air_quality = transform_air_quality(air_quality_raw)
 
